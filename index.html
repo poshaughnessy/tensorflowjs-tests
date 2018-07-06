@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.7"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@0.1.1"> </script>
+  </head>
+  <body>
+    
+    <video id="video" src="videos/llama-llama-love.mp4" width="600" height="400" autoplay controls></video>
+
+    <script>
+      const video = document.getElementById('video');
+
+      video.addEventListener('playing', () => {
+
+        console.log('video playing, now start classification');
+      
+        mobilenet.load().then(model => {
+          // Temporarily - classify after a few seconds of playing...
+          setTimeout(() => {
+            model.classify(video).then(predictions => {
+              console.log('Predictions:', predictions);
+            });
+          }, 15000);
+        });
+      });
+    </script>
+  </body>
+</html>
